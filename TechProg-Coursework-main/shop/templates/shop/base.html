@@ -1,0 +1,62 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <script>  
+    setInterval(function () {
+        var now = new Date();
+        var clock = document.getElementById("clock");
+        clock.innerHTML = now.toLocaleTimeString();
+    }, 1000);
+    </script>
+  <meta charset="utf-8" />
+  <title>{% block title %}{% trans "My shop" %}{% endblock %}</title>
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+</head>
+<body>
+  <div id="header">
+    <a href="/" > <img src="{% static  'img/googly.png' %}"  style=" float:left; margin-right:30px; width:30px; height:30px ;"/></a> 
+    <a href="/" class="logo">{% trans "EVERYTHING EVERYWHERE ALL AT ONCE" %}</a> 
+    <span id="clock"
+    style="background-color: #2F4F4F; color: #00FF7F; border:4px outset #FFA500; padding:5px 20px;">
+    </span>
+      </ul>
+    </div>
+  </div>
+ 
+  <div id="subheader">
+    <div class="cart">
+      {% with total_items=cart|length %}
+          {% if cart|length > 0 %}
+            {% trans "Your cart" %}
+            <a href="{% url "cart:cart_detail" %}">
+              {% blocktrans with total_items_plural=total_items|pluralize  total_price=cart.get_total_price %}
+                {{ total_items }} item{{ total_items_plural }},
+                ₽{{ total_price }}
+              {% endblocktrans %}
+            </a>
+          {% else %}
+            {% trans "Your cart is empty." %}
+          {% endif %}
+        {% endwith %}
+    </div>
+  </div>
+  
+
+  
+  
+
+  
+  
+   <div id="content">
+    {% block content %}
+    {% endblock %}
+    
+  </div>
+  
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d71792.74476171157!2d37.342271804809556!3d55.78415114670738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b549aca5f9aa01%3A0x3d1cd634d4e495fb!2z0JzQvtGB0LrQvtCy0YHQutC40Lkg0YLQtdGF0L3QuNGH0LXRgdC60LjQuSDRg9C90LjQstC10YDRgdC40YLQtdGCINGB0LLRj9C30Lgg0Lgg0LjQvdGE0L7RgNC80LDRgtC40LrQuA!5e0!3m2!1sru!2sru!4v1671807015194!5m2!1sru!2sru" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+   <img  src =" {% static "img/giphy.gif"  %}"  style= "position:fixed;width: 10%;height: 10%; right: 10px; top: 20%; padding: 10px; background: #ffe;  border: 1px solid #333;   " >
+<a href="http://pravo.gov.ru/proxy/ips/?docbody=&link_id=2&nd=102144583&intelsearch=&lastDoc=1"> Promoted and constructed by GOV of CSO-4 </a>
+</body>
+</html>
